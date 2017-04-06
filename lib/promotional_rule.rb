@@ -1,3 +1,5 @@
+require 'active_support/core_ext/object/blank'
+
 class PromotionalRule
   attr_accessor :name, :discount_type, :discount_mount
   # validates :name, :discount_type, :discount_mount, presence: true
@@ -28,24 +30,22 @@ class PromotionalRule
       raise NotImplementedError, "Subclasses must define `applicable?`."
     end
 
-    def apply! checkout, times = 1
-      checkout.add_discount(discount_mount * times)
-    end
+    # def apply! checkout, times = 1
+    #   binding.pry
+    #   add_rule checkout
+    #   apply_discount checkout, times
+    # end
 
-    def apply_discount checkout, times = 1, mount
+    def apply_discount checkout, mount, times = 1
       checkout.add_discount(send("#{discount_type}_discount", mount) * times)
     end
 
     def fixed_discount mount
-      mount - discount_mount
+      discount_mount
     end
 
-    def percentage_discount checkout, times
-      raise NotImplementedError, "Subclasses must define `apply_percentage_discount`."
-    end
-
-    def mount discount
-      mount * (1 - (discount_mount/100.0))
+    def percentage_discount mount
+      mount * (1 - (discount_mount / 100.0))
     end
 
     def add_rule checkout
