@@ -4,5 +4,6 @@ FactoryGirl.define do
     discount { 0 }
     promotional_rules { [] }
     applied_rules { [] }
+    items { [] }
   end
 end

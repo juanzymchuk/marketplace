@@ -26,6 +26,10 @@ describe PromotionalRule do
   end
 
   describe "calling apply abstract method" do
+    it "respond" do
+      expect(promotional_rule).to respond_to(:apply).with(1).argument
+    end
+
     it "raises" do
       expect { promotional_rule.apply(checkout) }.to raise_error(NotImplementedError)
     end

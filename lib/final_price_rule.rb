@@ -8,7 +8,6 @@ class FinalPriceRule < PromotionalRule
   # end
 
   def initialize
-    super
   end
 
   def apply checkout

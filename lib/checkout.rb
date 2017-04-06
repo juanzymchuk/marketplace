@@ -1,6 +1,5 @@
 class Checkout
-  attr_accessor :subtotal, :discount, :applied_rules, :promotional_rules
-  attr_reader :items
+  attr_accessor :subtotal, :discount, :applied_rules, :promotional_rules, :items
 
   # def initialize promotional_rules
   #   @promotional_rules = promotional_rules

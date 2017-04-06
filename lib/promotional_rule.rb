@@ -30,12 +30,6 @@ class PromotionalRule
       raise NotImplementedError, "Subclasses must define `applicable?`."
     end
 
-    # def apply! checkout, times = 1
-    #   binding.pry
-    #   add_rule checkout
-    #   apply_discount checkout, times
-    # end
-
     def apply_discount checkout, mount, times = 1
       checkout.add_discount(send("#{discount_type}_discount", mount) * times)
     end
