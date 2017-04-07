@@ -38,4 +38,8 @@ class ProductRule < PromotionalRule
     def apply! checkout
       apply_discount checkout, item.price
     end
+
+    def fixed_discount mount
+      mount - discount_mount
+    end
 end

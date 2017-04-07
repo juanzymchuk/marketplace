@@ -56,7 +56,7 @@ describe ProductRule do
       end
 
       it "modify checkout discount" do
-        expect(applies_checkout.discount).to eq(fixed_rule.discount_mount * 2)
+        expect(applies_checkout.discount).to eq((fixed_rule.item.price - fixed_rule.discount_mount) * 2)
       end
 
       it "added on applied rules for checkout" do

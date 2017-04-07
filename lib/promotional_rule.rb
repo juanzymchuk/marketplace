@@ -23,7 +23,7 @@ class PromotionalRule
   private
 
     def applied? checkout
-      checkout.applied_rules.find{ |ar| ar.promotional_rule == self }.present?
+      checkout.applied_rules.find{ |ar| ar == self }.present?
     end
 
     def applicable? checkout
@@ -34,12 +34,13 @@ class PromotionalRule
       checkout.add_discount(send("#{discount_type}_discount", mount) * times)
     end
 
-    def fixed_discount mount
-      discount_mount
+    def percentage_discount mount
+      mount * (discount_mount / 100.0)
     end
 
-    def percentage_discount mount
-      mount * (1 - (discount_mount / 100.0))
+
+    def fixed_discount
+      raise NotImplementedError, "Subclasses must define `fixed_discount`."
     end
 
     def add_rule checkout

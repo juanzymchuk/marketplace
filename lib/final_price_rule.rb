@@ -15,12 +15,16 @@ class FinalPriceRule < PromotionalRule
   end
 
   private
-    def apply! checkout
-      add_rule checkout
-      apply_discount checkout, checkout.subtotal
+    def applicable? checkout
+      checkout.subtotal >= required_money
     end
 
-    def applicable? checkout
-      checkout.subtotal - checkout.discount >= required_money
+    def apply! checkout
+      add_rule checkout
+      apply_discount checkout, (checkout.subtotal - checkout.discount)
+    end
+
+    def fixed_discount mount
+      discount_mount
     end
 end

@@ -10,7 +10,10 @@ FactoryGirl.define do
     end
 
     factory :percentage_final_price_rule do
+      name { 'spend over £60' }
       discount_type { 'percentage' }
+      discount_mount { 10.0 }
+      required_money { 60.0 }
     end
   end
 end
