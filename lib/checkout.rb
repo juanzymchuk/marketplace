@@ -16,11 +16,12 @@ class Checkout
   def scan item
     @items << item
     @subtotal += item.price
-    promotional_rule(item).apply(self) if promotional_rule.include?(item)
+    apply_product_rule(item) if product_rule_include? item
   end
 
   def total
-    @subtotal - @discount
+    apply_final_price_rules
+    (@subtotal - @discount).round(2)
   end
 
   def add_discount mount
@@ -28,7 +29,25 @@ class Checkout
   end
 
   private
-    def promotional_rule item
-      promotional_rules.find{ |pr| pr.item == item }
+    def product_rule_include? item
+      product_rules.map(&:item).map(&:code).include?(item.code)
+    end
+
+    def product_rules
+      promotional_rules.select{ |pr| pr.instance_of?(ProductRule) }
+    end
+
+    def apply_product_rule item
+      product_rules.find{ |pr| pr.item.code == item.code }.apply(self)
+    end
+
+    def apply_final_price_rules
+      final_price_rules.each do |rule|
+        rule.apply(self)
+      end
+    end
+
+    def final_price_rules
+      promotional_rules.select{ |pr| pr.instance_of?(FinalPriceRule) }
     end
 end
