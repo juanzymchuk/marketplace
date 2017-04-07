@@ -1,5 +1,6 @@
 class FinalPriceRule < PromotionalRule
   attr_accessor :required_money
+  
   # validates :required_money, presence: true
 
   # def initialize required_money

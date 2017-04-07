@@ -25,16 +25,16 @@ describe PromotionalRule do
     end
   end
 
-  describe "calling apply abstract method" do
-    it "respond" do
+  describe 'calling apply abstract method' do
+    it 'respond' do
       expect(promotional_rule).to respond_to(:apply).with(1).argument
     end
 
-    it "raises" do
+    it 'raises' do
       expect { promotional_rule.apply(checkout) }.to raise_error(NotImplementedError)
     end
 
-    it "matches the error message" do
+    it 'matches the error message' do
       expect { promotional_rule.apply(checkout) }.to raise_error('Subclasses must define `apply(checkout)`.')
     end
   end

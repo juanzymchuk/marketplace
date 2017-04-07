@@ -2,6 +2,7 @@ require 'active_support/core_ext/object/blank'
 
 class PromotionalRule
   attr_accessor :name, :discount_type, :discount_mount
+
   # validates :name, :discount_type, :discount_mount, presence: true
   # validates :discount_type, inclusion: { in: discount_types.keys }
   # validates :discount_mount, numericality: { greater_than: 0 }
@@ -17,7 +18,7 @@ class PromotionalRule
   end
 
   def apply checkout
-    raise NotImplementedError, "Subclasses must define `apply(checkout)`."
+    raise NotImplementedError, 'Subclasses must define `apply(checkout)`.'
   end
 
   private
@@ -27,7 +28,7 @@ class PromotionalRule
     end
 
     def applicable? checkout
-      raise NotImplementedError, "Subclasses must define `applicable?`."
+      raise NotImplementedError, 'Subclasses must define `applicable?`.'
     end
 
     def apply_discount checkout, mount, times = 1
@@ -40,7 +41,7 @@ class PromotionalRule
 
 
     def fixed_discount
-      raise NotImplementedError, "Subclasses must define `fixed_discount`."
+      raise NotImplementedError, 'Subclasses must define `fixed_discount`.'
     end
 
     def add_rule checkout
