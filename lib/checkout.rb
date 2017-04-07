@@ -10,7 +10,6 @@ class Checkout
   # end
 
   def initialize
-    @items = []
   end
 
   def scan item

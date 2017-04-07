@@ -5,8 +5,8 @@ require 'checkout'
 describe FinalPriceRule do
   let(:final_price_rule) { build(:final_price_rule) }
 
-  let(:fixed) { build(:fixed_final_price_rule, discount_mount: 50.0, required_money: 200.0) }
-  let(:percentage) { build(:percentage_final_price_rule, discount_mount: 50.0, required_money: 200.0) }
+  let(:fixed) { build(:fixed_final_price_rule, discount_mount: 50.0, required_spend: 200.0) }
+  let(:percentage) { build(:percentage_final_price_rule, discount_mount: 50.0, required_spend: 200.0) }
 
   let(:applies_checkout) { build(:checkout, subtotal: 220.0) }
   let(:not_applies_checkout) { build(:checkout, subtotal: 100.0) }
@@ -30,8 +30,8 @@ describe FinalPriceRule do
       expect(final_price_rule.discount_mount).not_to be_nil
     end
 
-    it 'required_money' do
-      expect(final_price_rule.required_money).not_to be_nil
+    it 'required_spend' do
+      expect(final_price_rule.required_spend).not_to be_nil
     end
   end
 

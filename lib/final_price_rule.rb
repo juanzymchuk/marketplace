@@ -1,11 +1,11 @@
 class FinalPriceRule < PromotionalRule
-  attr_accessor :required_money
-  
-  # validates :required_money, presence: true
+  attr_accessor :required_spend
 
-  # def initialize required_money
+  # validates :required_spend, presence: true
+
+  # def initialize required_spend
   #   super
-  #   @required_money = required_money
+  #   @required_spend = required_spend
   # end
 
   def initialize
@@ -17,7 +17,7 @@ class FinalPriceRule < PromotionalRule
 
   private
     def applicable? checkout
-      checkout.subtotal >= required_money
+      checkout.subtotal >= required_spend
     end
 
     def apply! checkout
