@@ -14,7 +14,3 @@ class Item
   def initialize
   end
 end
-
-# item = Market::Item.new('Lavender heart', '001', '£', 9.25)
-# item = Market::Item.new('Custom cufflinks', '002', '£', 45.00)
-# item = Market::Item.new('Kids T-shirt', '003', '£', 19.95)

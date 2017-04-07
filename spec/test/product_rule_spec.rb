@@ -43,48 +43,48 @@ describe ProductRule do
     end
   end
 
-  context "when calling apply abstract method" do
-    it "respond" do
+  context 'when calling apply abstract method' do
+    it 'respond' do
       expect(product_rule).to respond_to(:apply).with(1).argument
     end
   end
 
-  context "when try apply fixed discount" do
-    context "on applicable checkout" do
+  context 'when try apply fixed discount' do
+    context 'on applicable checkout' do
       before :each do
         fixed_rule.apply applies_checkout
       end
 
-      it "modify checkout discount" do
-        expect(applies_checkout.discount).to eq(fixed_rule.discount_mount * 2)
+      it 'modify checkout discount' do
+        expect(applies_checkout.discount).to eq((fixed_rule.item.price - fixed_rule.discount_mount) * 2)
       end
 
-      it "added on applied rules for checkout" do
+      it 'added on applied rules for checkout' do
         expect(applies_checkout.applied_rules).not_to be_empty
       end
 
-      it "self promotional rule was added to applied rules for checkout" do
+      it 'self promotional rule was added to applied rules for checkout' do
         expect(applies_checkout.applied_rules.find{ |ar| ar == fixed_rule }).to eq(fixed_rule)
       end
     end
 
-    context "on not applicable checkout" do
+    context 'on not applicable checkout' do
       before :each do
         fixed_rule.apply not_applies_checkout
       end
 
-      it "not modify checkout discount" do
+      it 'not modify checkout discount' do
         expect(not_applies_checkout.discount).to eq(0)
       end
 
-      it "not added on applied rules for checkout" do
+      it 'not added on applied rules for checkout' do
         expect(applies_checkout.applied_rules).to be_empty
       end
     end
   end
 
-  context "when try apply percentage discount" do
-    context "on applicable checkout" do
+  context 'when try apply percentage discount' do
+    context 'on applicable checkout' do
       before :each do
         percentage_rule.apply applies_checkout
       end
@@ -93,29 +93,29 @@ describe ProductRule do
       let(:item_price) { percentage_rule.item.price }
       let(:discount_percentage) { (1 - percentage_rule.discount_mount / 100.0) }
 
-      it "modify checkout discount" do
+      it 'modify checkout discount' do
         expect(applies_checkout.discount).to eq(items_quantity * item_price * discount_percentage)
       end
 
-      it "added on applied rules for checkout" do
+      it 'added on applied rules for checkout' do
         expect(applies_checkout.applied_rules).not_to be_empty
       end
 
-      it "self promotional rule was added to applied rules for checkout" do
+      it 'self promotional rule was added to applied rules for checkout' do
         expect(applies_checkout.applied_rules.find{ |ar| ar == percentage_rule }).to eq(percentage_rule)
       end
     end
 
-    context "on not applicable checkout" do
+    context 'on not applicable checkout' do
       before :each do
         percentage_rule.apply not_applies_checkout
       end
 
-      it "not modify checkout discount" do
+      it 'not modify checkout discount' do
         expect(not_applies_checkout.discount).to eq(0)
       end
 
-      it "not added on applied rules for checkout" do
+      it 'not added on applied rules for checkout' do
         expect(applies_checkout.applied_rules).to be_empty
       end
     end

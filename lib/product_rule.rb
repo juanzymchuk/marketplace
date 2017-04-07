@@ -1,5 +1,6 @@
 class ProductRule < PromotionalRule
   attr_accessor :item, :required_quantity, :repeatable
+  
   # validates :required_quantity, presence: true, numericality: { only_integer: true, greater_than: 0 }
   # validates :repeatable, presence: true, inclusion: { in: [true, false] }
 
@@ -37,5 +38,9 @@ class ProductRule < PromotionalRule
 
     def apply! checkout
       apply_discount checkout, item.price
+    end
+
+    def fixed_discount mount
+      mount - discount_mount
     end
 end
